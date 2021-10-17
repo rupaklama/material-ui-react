@@ -9,9 +9,25 @@ export default makeStyles(
       // to apply the default theme style - toolbar margin
       ...theme.mixins.toolbar,
       marginBottom: '3rem',
+      // screen size medium & below
+      [theme.breakpoints.down('md')]: {
+        marginBottom: '2em',
+      },
+      // phones
+      [theme.breakpoints.down('xs')]: {
+        marginBottom: '1.25em',
+      },
     },
     logo: {
       height: '8em',
+      // screen size medium & below
+      [theme.breakpoints.down('md')]: {
+        height: '7em',
+      },
+      // phones
+      [theme.breakpoints.down('xs')]: {
+        height: '5.5em',
+      },
     },
     logoContainer: {
       padding: 0,

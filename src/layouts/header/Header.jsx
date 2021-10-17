@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
-import { AppBar, Toolbar, Tabs, Tab, Button, Menu, MenuItem } from '@material-ui/core';
+import { AppBar, Toolbar, Tabs, Tab, Button, Menu, MenuItem, useMediaQuery } from '@material-ui/core';
+import { useTheme } from '@material-ui/styles';
 
 import ElevationScroll from '../../library/elevation-scroll/ElevationScroll';
 
@@ -11,8 +12,11 @@ import useStyles from './Header.style';
 function Header() {
   // style classes
   const classes = useStyles();
-  const [value, setValue] = useState(0);
+  const theme = useTheme();
+  // md - same as max-width, medium & below to return 'true'
+  const matches = useMediaQuery(theme.breakpoints.down('md'));
 
+  const [value, setValue] = useState(0);
   const [anchorEl, setAnchorEl] = useState(null);
   const [open, setOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -20,16 +24,70 @@ function Header() {
   useEffect(() => {
     // setting 'Active' on tabs to persist
     // correct path & value is not set yet
-    if (window.location.pathname === '/' && value !== 0) {
-      setValue(0);
-    } else if (window.location.pathname === '/services' && value !== 1) {
-      setValue(1);
-    } else if (window.location.pathname === '/revolution' && value !== 2) {
-      setValue(2);
-    } else if (window.location.pathname === '/about' && value !== 3) {
-      setValue(3);
-    } else if (window.location.pathname === '/contact' && value !== 4) {
-      setValue(4);
+    // if (window.location.pathname === '/' && value !== 0) {
+    //   setValue(0);
+    // } else if (window.location.pathname === '/services' && value !== 1) {
+    //   setValue(1);
+    // } else if (window.location.pathname === '/revolution' && value !== 2) {
+    //   setValue(2);
+    // } else if (window.location.pathname === '/about' && value !== 3) {
+    //   setValue(3);
+    // } else if (window.location.pathname === '/contact' && value !== 4) {
+    //   setValue(4);
+    // }
+
+    switch (window.location.pathname) {
+      case '/':
+        if (value !== 0) {
+          setValue(0);
+        }
+        break;
+      case '/services':
+        if (value !== 1) {
+          setValue(1);
+          setSelectedIndex(0);
+        }
+        break;
+      case '/software':
+        if (value !== 1) {
+          setValue(1);
+          setSelectedIndex(1);
+        }
+        break;
+      case '/apps':
+        if (value !== 1) {
+          setValue(1);
+          setSelectedIndex(2);
+        }
+        break;
+      case '/sites':
+        if (value !== 1) {
+          setValue(1);
+          setSelectedIndex(3);
+        }
+        break;
+      case '/revolution':
+        if (value !== 2) {
+          setValue(2);
+        }
+        break;
+      case '/about':
+        if (value !== 3) {
+          setValue(3);
+        }
+        break;
+      case '/contact':
+        if (value !== 4) {
+          setValue(4);
+        }
+        break;
+      case '/estimate':
+        if (value !== 5) {
+          setValue(5);
+        }
+        break;
+      default:
+        break;
     }
   }, [value]);
 
@@ -62,70 +120,47 @@ function Header() {
     { name: 'Website Development', link: '/sites' },
   ];
 
-  return (
-    <>
-      <ElevationScroll>
-        {/* <AppBar color='primary' /> - default 'color' prop is set to 'primary' */}
-        <AppBar>
-          {/* Toolbar helps layout elements horizontally manner for the AppBar */}
-          {/* disableGutters - to remove default padding */}
-          <Toolbar disableGutters>
-            <Button
-              // disable transition click effect
-              disableRipple
-              component={Link}
-              to='/'
-              className={classes.logoContainer}
-              // to direct to homepage
-              onClick={() => setValue(0)}
-            >
-              <img src={logo} alt='company logo' className={classes.logo} />
-            </Button>
-
-            {/* <Typography variant='h4' color='secondary'>
+  const tabs = (
+    <Fragment>
+      {/* <Typography variant='h4' color='secondary'>
               Savage Dev
             </Typography> */}
-            <Tabs
-              value={value}
-              onChange={handleChange}
-              indicatorColor='primary'
-              className={classes.tabContainer}
-            >
-              {/* Hooking up 'Link' component of react router with 'to' prop for navigation */}
-              <Tab className={classes.tab} component={Link} to='/' label='Home' />
+      <Tabs value={value} onChange={handleChange} indicatorColor='primary' className={classes.tabContainer}>
+        {/* Hooking up 'Link' component of react router with 'to' prop for navigation */}
+        <Tab className={classes.tab} component={Link} to='/' label='Home' />
 
-              <Tab
-                aria-owns={anchorEl ? 'simple-menu' : undefined}
-                aria-haspopup={anchorEl ? true : undefined}
-                onMouseOver={handleClick}
-                className={classes.tab}
-                component={Link}
-                to='/services'
-                label='Services'
-              />
+        <Tab
+          aria-owns={anchorEl ? 'simple-menu' : undefined}
+          aria-haspopup={anchorEl ? true : undefined}
+          onMouseOver={handleClick}
+          className={classes.tab}
+          component={Link}
+          to='/services'
+          label='Services'
+        />
 
-              <Tab className={classes.tab} component={Link} to='/revolution' label='The Revolution' />
-              <Tab className={classes.tab} component={Link} to='/about' label='About Us' />
-              <Tab className={classes.tab} component={Link} to='/contact' label='Contact Us' />
-            </Tabs>
+        <Tab className={classes.tab} component={Link} to='/revolution' label='The Revolution' />
+        <Tab className={classes.tab} component={Link} to='/about' label='About Us' />
+        <Tab className={classes.tab} component={Link} to='/contact' label='Contact Us' />
+      </Tabs>
 
-            <Button variant='contained' color='secondary' className={classes.button}>
-              Free Estimate
-            </Button>
+      <Button variant='contained' color='secondary' className={classes.button}>
+        Free Estimate
+      </Button>
 
-            <Menu
-              id='simple-menu'
-              anchorEl={anchorEl}
-              open={open}
-              onClose={handleClose}
-              // overriding or extending style
-              classes={{ paper: classes.menu }}
-              // remove on un-hover
-              MenuListProps={{ onMouseLeave: handleClose }}
-              // not to float above header & removing drop shadow
-              elevation={0}
-            >
-              {/* <MenuItem
+      <Menu
+        id='simple-menu'
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        // overriding or extending style
+        classes={{ paper: classes.menu }}
+        // remove on un-hover
+        MenuListProps={{ onMouseLeave: handleClose }}
+        // not to float above header & removing drop shadow
+        elevation={0}
+      >
+        {/* <MenuItem
                 onClick={() => {
                   handleClose();
                   setValue(1);
@@ -172,23 +207,47 @@ function Header() {
                 Website Development
               </MenuItem> */}
 
-              {menuOptions.map((option, i) => (
-                <MenuItem
-                  key={option.link}
-                  component={Link}
-                  to={option.link}
-                  classes={{ root: classes.menuItem }}
-                  onClick={e => {
-                    handleMenuItemClick(e, i);
-                    setValue(1);
-                    handleClose();
-                  }}
-                  selected={i === selectedIndex && value === 1}
-                >
-                  {option.name}
-                </MenuItem>
-              ))}
-            </Menu>
+        {menuOptions.map((option, i) => (
+          <MenuItem
+            key={option.link}
+            component={Link}
+            to={option.link}
+            classes={{ root: classes.menuItem }}
+            onClick={e => {
+              handleMenuItemClick(e, i);
+              setValue(1);
+              handleClose();
+            }}
+            selected={i === selectedIndex && value === 1}
+          >
+            {option.name}
+          </MenuItem>
+        ))}
+      </Menu>
+    </Fragment>
+  );
+
+  return (
+    <>
+      <ElevationScroll>
+        {/* <AppBar color='primary' /> - default 'color' prop is set to 'primary' */}
+        <AppBar>
+          {/* Toolbar helps layout elements horizontally manner for the AppBar */}
+          {/* disableGutters - to remove default padding */}
+          <Toolbar disableGutters>
+            <Button
+              // disable transition click effect
+              disableRipple
+              component={Link}
+              to='/'
+              className={classes.logoContainer}
+              // to direct to homepage
+              onClick={() => setValue(0)}
+            >
+              <img src={logo} alt='company logo' className={classes.logo} />
+            </Button>
+
+            {matches ? null : tabs}
           </Toolbar>
         </AppBar>
       </ElevationScroll>
