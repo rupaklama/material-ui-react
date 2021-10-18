@@ -63,5 +63,15 @@ export default makeStyles(
         opacity: 1,
       },
     },
+    drawerIconContainer: {
+      marginLeft: 'auto',
+      '&:hover': {
+        backgroundColor: 'transparent',
+      },
+    },
+    drawerIcon: {
+      height: '30px',
+      width: '30px',
+    },
   })
 );

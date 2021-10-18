@@ -1,7 +1,19 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
-import { AppBar, Toolbar, Tabs, Tab, Button, Menu, MenuItem, useMediaQuery } from '@material-ui/core';
+import {
+  AppBar,
+  Toolbar,
+  Tabs,
+  Tab,
+  Button,
+  Menu,
+  MenuItem,
+  useMediaQuery,
+  SwipeableDrawer,
+  IconButton,
+} from '@material-ui/core';
+import MenuIcon from '@material-ui/icons/Menu';
 import { useTheme } from '@material-ui/styles';
 
 import ElevationScroll from '../../library/elevation-scroll/ElevationScroll';
@@ -16,9 +28,17 @@ function Header() {
   // md - same as max-width, medium & below to return 'true'
   const matches = useMediaQuery(theme.breakpoints.down('md'));
 
+  // check to see if user is on ios device
+  // userAgent returns a string representing values such as the name, version, and platform of the browser
+  // The test() method tests for a match in a string.
+  // This method returns true if it finds a match, otherwise it returns false.
+  const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
+
+  const [openDrawer, setOpenDrawer] = useState(false);
+
   const [value, setValue] = useState(0);
   const [anchorEl, setAnchorEl] = useState(null);
-  const [open, setOpen] = useState(false);
+  const [openMenu, setOpenMenu] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   useEffect(() => {
@@ -97,19 +117,19 @@ function Header() {
   // telling menu where we want to be open on click
   const handleClick = e => {
     setAnchorEl(e.currentTarget);
-    setOpen(true);
+    setOpenMenu(true);
   };
 
   const handleMenuItemClick = (e, i) => {
     setAnchorEl(null);
-    setOpen(false);
+    setOpenMenu(false);
     // to pass the index of MenuItem which just got clicked
     setSelectedIndex(i);
   };
 
   const handleClose = () => {
     setAnchorEl(null);
-    setOpen(false);
+    setOpenMenu(false);
   };
 
   // instead of putting it individually in MenuItem to avoid code duplication
@@ -151,7 +171,7 @@ function Header() {
       <Menu
         id='simple-menu'
         anchorEl={anchorEl}
-        open={open}
+        open={openMenu}
         onClose={handleClose}
         // overriding or extending style
         classes={{ paper: classes.menu }}
@@ -227,6 +247,28 @@ function Header() {
     </Fragment>
   );
 
+  const drawer = (
+    <Fragment>
+      {/* props to optimize mobile performance */}
+      <SwipeableDrawer
+        disableBackdropTransition={!iOS}
+        disableDiscovery={iOS}
+        open={openDrawer}
+        onClose={() => setOpenDrawer(false)}
+        onOpen={() => setOpenDrawer(true)}
+      >
+        Example Drawer
+      </SwipeableDrawer>
+
+      <IconButton
+        className={classes.drawerIconContainer}
+        onClick={() => setOpenDrawer(!openDrawer)}
+        disableRipple
+      >
+        <MenuIcon className={classes.drawerIcon} />
+      </IconButton>
+    </Fragment>
+  );
   return (
     <>
       <ElevationScroll>
@@ -247,7 +289,7 @@ function Header() {
               <img src={logo} alt='company logo' className={classes.logo} />
             </Button>
 
-            {matches ? null : tabs}
+            {matches ? drawer : tabs}
           </Toolbar>
         </AppBar>
       </ElevationScroll>
