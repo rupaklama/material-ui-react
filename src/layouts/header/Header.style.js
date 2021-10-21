@@ -73,5 +73,19 @@ export default makeStyles(
       height: '30px',
       width: '30px',
     },
+    drawer: {
+      backgroundColor: theme.palette.common.savageBlue,
+    },
+    drawerItem: {
+      ...theme.typography.tab,
+      color: 'white',
+      opacity: 0.7,
+    },
+    drawerItemEstimate: {
+      backgroundColor: theme.palette.common.savageOrange,
+    },
+    drawerItemSelected: {
+      opacity: 1,
+    },
   })
 );
