@@ -182,6 +182,8 @@ function Header() {
         MenuListProps={{ onMouseLeave: handleClose }}
         // not to float above header & removing drop shadow
         elevation={0}
+        // above app bar
+        style={{ zIndex: 1302 }}
       >
         {/* <MenuItem
                 onClick={() => {
@@ -261,6 +263,9 @@ function Header() {
         onOpen={() => setOpenDrawer(true)}
         classes={{ paper: classes.drawer }}
       >
+        {/* adding div to add margin to push drawer down */}
+        <div className={classes.toolbarMargin} />
+
         <List disablePadding>
           <ListItem
             onClick={() => {
@@ -272,10 +277,13 @@ function Header() {
             component={Link}
             to='/'
             selected={value === 0}
+            // apply this on selected item
+            classes={{ selected: classes.drawerItemSelected }}
           >
             {/* to get rid off default link style */}
             <ListItemText
-              className={value === 0 ? [classes.drawerItem, classes.drawerItemSelected] : classes.drawerItem}
+              // className={value === 0 ? [classes.drawerItem, classes.drawerItemSelected] : classes.drawerItem}
+              className={classes.drawerItem}
               disableTypography
             >
               Home
@@ -292,11 +300,9 @@ function Header() {
             component={Link}
             to='/services'
             selected={value === 1}
+            classes={{ selected: classes.drawerItemSelected }}
           >
-            <ListItemText
-              className={value === 1 ? [classes.drawerItem, classes.drawerItemSelected] : classes.drawerItem}
-              disableTypography
-            >
+            <ListItemText className={classes.drawerItem} disableTypography>
               Services
             </ListItemText>
           </ListItem>
@@ -311,11 +317,9 @@ function Header() {
             component={Link}
             to='/revolution'
             selected={value === 2}
+            classes={{ selected: classes.drawerItemSelected }}
           >
-            <ListItemText
-              className={value === 2 ? [classes.drawerItem, classes.drawerItemSelected] : classes.drawerItem}
-              disableTypography
-            >
+            <ListItemText className={classes.drawerItem} disableTypography>
               The Revolution
             </ListItemText>
           </ListItem>
@@ -330,11 +334,9 @@ function Header() {
             component={Link}
             to='/about'
             selected={value === 3}
+            classes={{ selected: classes.drawerItemSelected }}
           >
-            <ListItemText
-              className={value === 3 ? [classes.drawerItem, classes.drawerItemSelected] : classes.drawerItem}
-              disableTypography
-            >
+            <ListItemText className={classes.drawerItem} disableTypography>
               About Us
             </ListItemText>
           </ListItem>
@@ -349,11 +351,9 @@ function Header() {
             component={Link}
             to='/contact'
             selected={value === 4}
+            classes={{ selected: classes.drawerItemSelected }}
           >
-            <ListItemText
-              className={value === 4 ? [classes.drawerItem, classes.drawerItemSelected] : classes.drawerItem}
-              disableTypography
-            >
+            <ListItemText className={classes.drawerItem} disableTypography>
               Contact Us
             </ListItemText>
           </ListItem>
@@ -369,13 +369,11 @@ function Header() {
             component={Link}
             to='/estimate'
             selected={value === 5}
+            classes={{ selected: classes.drawerItemSelected }}
           >
             {/* applying multiple styles in an array */}
             {/* <ListItemText className={[classes.drawerItem, classes.drawerItemEstimate]} disableTypography> */}
-            <ListItemText
-              className={value === 5 ? [classes.drawerItem, classes.drawerItemSelected] : classes.drawerItem}
-              disableTypography
-            >
+            <ListItemText className={classes.drawerItem} disableTypography>
               Free Estimate
             </ListItemText>
           </ListItem>
@@ -395,7 +393,7 @@ function Header() {
     <>
       <ElevationScroll>
         {/* <AppBar color='primary' /> - default 'color' prop is set to 'primary' */}
-        <AppBar>
+        <AppBar className={classes.appBar}>
           {/* Toolbar helps layout elements horizontally manner for the AppBar */}
           {/* disableGutters - to remove default padding */}
           <Toolbar disableGutters>
@@ -416,7 +414,7 @@ function Header() {
         </AppBar>
       </ElevationScroll>
 
-      {/* applying default mui theme toolbar margin */}
+      {/* applying default mui theme toolbar margin to push other page down to be visible */}
       <div className={classes.toolbarMargin} />
     </>
   );

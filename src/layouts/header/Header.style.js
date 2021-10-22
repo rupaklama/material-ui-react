@@ -87,5 +87,9 @@ export default makeStyles(
     drawerItemSelected: {
       opacity: 1,
     },
+    appBar: {
+      // to place app bar at front
+      zIndex: theme.zIndex.modal + 1,
+    },
   })
 );
