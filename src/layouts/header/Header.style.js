@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-// creating inline style
+// to access our default theme & to create styles
 export default makeStyles(
   // accessing our default theme - root
   theme => ({
