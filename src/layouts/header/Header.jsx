@@ -24,7 +24,7 @@ import ElevationScroll from '../../library/elevation-scroll/ElevationScroll';
 import logo from '../../assets/logo.svg';
 import useStyles from './Header.style';
 
-function Header() {
+function Header({ value, setValue, selectedIndex, setSelectedIndex }) {
   // style classes
   const classes = useStyles();
   const theme = useTheme();
@@ -39,10 +39,11 @@ function Header() {
 
   const [openDrawer, setOpenDrawer] = useState(false);
 
-  const [value, setValue] = useState(0);
+  // NOTE - got move to App Component to share with others
+  // const [value, setValue] = useState(0);
   const [anchorEl, setAnchorEl] = useState(null);
   const [openMenu, setOpenMenu] = useState(false);
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  // const [selectedIndex, setSelectedIndex] = useState(0);
 
   useEffect(() => {
     // setting 'Active' on tabs to persist
@@ -112,7 +113,7 @@ function Header() {
       default:
         break;
     }
-  }, [value]);
+  }, [setSelectedIndex, setValue, value]);
 
   // newValue - index of current selected tab
   const handleChange = (e, newValue) => setValue(newValue);
