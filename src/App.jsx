@@ -9,6 +9,7 @@ import './index.css';
 
 import Header from './layouts/header/Header';
 import Footer from './layouts/footer/Footer';
+import LandingPage from './layouts/landing-page/LandingPage';
 
 function App() {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -23,11 +24,10 @@ function App() {
           selectedIndex={selectedIndex}
           setSelectedIndex={setSelectedIndex}
         />
-        <h3>By Savage Developers</h3>
 
         <section>
           <Switch>
-            <Route exact path='/' component={() => <div style={{ height: '100vh' }}>Home</div>} />
+            <Route exact path='/' component={LandingPage} />
             <Route exact path='/services' component={() => <div>services</div>} />
             <Route exact path='/software' component={() => <div>software</div>} />
             <Route exact path='/apps' component={() => <div>apps</div>} />
