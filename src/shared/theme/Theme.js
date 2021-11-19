@@ -13,6 +13,7 @@ export default createMuiTheme({
       savageOrange: savageOrange,
     },
     // material UI will generate all the light & dark variants of primary + secondary
+    // primary.light
     primary: {
       main: savageBlue,
     },

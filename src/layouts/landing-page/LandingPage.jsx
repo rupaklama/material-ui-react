@@ -1,5 +1,5 @@
 import { Button, Grid, Typography } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 import Lottie from 'react-lottie';
 import animationData from '../../animations/landinganimation/data';
@@ -12,10 +12,36 @@ const useStyles = makeStyles(theme => ({
     marginTop: '2em',
     marginLeft: '10%',
   },
+  estimateButton: {
+    ...theme.typography.estimate,
+    backgroundColor: theme.palette.common.savageOrange,
+    borderRadius: 50,
+    height: 45,
+    width: 145,
+    marginRight: 40,
+    '&:hover': {
+      backgroundColor: theme.palette.secondary.light,
+    },
+  },
+  buttonContainer: {
+    marginTop: '1em',
+  },
+  learnButtonHero: {
+    borderColor: theme.palette.common.savageBlue,
+    color: theme.palette.common.savageBlue,
+    borderWidth: 2,
+    textTransform: 'none',
+    borderRadius: 50,
+    fontFamily: 'Roboto',
+    fontWeight: 'bold',
+    fontSize: '0.9rem',
+    height: 45,
+  },
 }));
 
 const LandingPage = () => {
   const classes = useStyles();
+  const theme = useTheme();
 
   const defaultOptions = {
     loop: true,
@@ -34,14 +60,17 @@ const LandingPage = () => {
             <Typography variant='h2' align='center'>
               By Savage Developers
             </Typography>
-            <Grid container>
+
+            <Grid container justify='center' className={classes.buttonContainer}>
               <Grid item>
-                <Button variant='contained'>Free Estimate</Button>
+                <Button className={classes.estimateButton} variant='contained'>
+                  Free Estimate
+                </Button>
               </Grid>
               <Grid item>
-                <Button variant='outlined'>
+                <Button variant='outlined' className={classes.learnButtonHero}>
                   Learn more
-                  <ButtonArrow width={15} height={15} fill='red' />
+                  <ButtonArrow width={15} height={15} fill={theme.palette.common.savageBlue} />
                 </Button>
               </Grid>
             </Grid>
