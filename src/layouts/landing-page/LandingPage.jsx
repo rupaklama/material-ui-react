@@ -1,43 +1,12 @@
-import { Button, Grid, Typography } from '@material-ui/core';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { Button, Grid, Typography } from "@material-ui/core";
+import { useTheme } from "@material-ui/core/styles";
 
-import Lottie from 'react-lottie';
-import animationData from '../../animations/landinganimation/data';
-import ButtonArrow from '../../components/button/ButtonArrow';
+import Lottie from "react-lottie";
 
-const useStyles = makeStyles(theme => ({
-  animation: {
-    maxWidth: '50em',
-    minWidth: '20em',
-    marginTop: '2em',
-    marginLeft: '10%',
-  },
-  estimateButton: {
-    ...theme.typography.estimate,
-    backgroundColor: theme.palette.common.savageOrange,
-    borderRadius: 50,
-    height: 45,
-    width: 145,
-    marginRight: 40,
-    '&:hover': {
-      backgroundColor: theme.palette.secondary.light,
-    },
-  },
-  buttonContainer: {
-    marginTop: '1em',
-  },
-  learnButtonHero: {
-    borderColor: theme.palette.common.savageBlue,
-    color: theme.palette.common.savageBlue,
-    borderWidth: 2,
-    textTransform: 'none',
-    borderRadius: 50,
-    fontFamily: 'Roboto',
-    fontWeight: 'bold',
-    fontSize: '0.9rem',
-    height: 45,
-  },
-}));
+import useStyles from "./LandingPage.style";
+
+import animationData from "../../animations/landinganimation/data";
+import ButtonArrow from "../../components/button/ButtonArrow";
 
 const LandingPage = () => {
   const classes = useStyles();
@@ -48,15 +17,15 @@ const LandingPage = () => {
     autoplay: true,
     animationData: animationData,
     rendererSettings: {
-      preserveAspectRatio: 'xMidYMid slice',
+      preserveAspectRatio: "xMidYMid slice",
     },
   };
 
   return (
-    <Grid container direction='column'>
+    <Grid container direction='column' className={classes.mainContainer}>
       <Grid item>
         <Grid container direction='row' justify='flex-end' alignItems='center'>
-          <Grid sm item>
+          <Grid sm item className={classes.heroTextContainer}>
             <Typography variant='h2' align='center'>
               By Savage Developers
             </Typography>
@@ -69,7 +38,7 @@ const LandingPage = () => {
               </Grid>
               <Grid item>
                 <Button variant='outlined' className={classes.learnButtonHero}>
-                  Learn more
+                  <span style={{ marginRight: 10 }}>Learn more</span>
                   <ButtonArrow width={15} height={15} fill={theme.palette.common.savageBlue} />
                 </Button>
               </Grid>
@@ -77,7 +46,7 @@ const LandingPage = () => {
           </Grid>
 
           <Grid sm item className={classes.animation}>
-            <Lottie options={defaultOptions} height={'100%'} width='100%' />
+            <Lottie options={defaultOptions} height={"100%"} width='100%' />
           </Grid>
         </Grid>
       </Grid>
