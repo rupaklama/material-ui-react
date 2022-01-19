@@ -25,15 +25,19 @@ export default makeStyles(theme => ({
     marginTop: "1em",
   },
   learnButtonHero: {
-    borderColor: theme.palette.common.savageBlue,
-    color: theme.palette.common.savageBlue,
-    borderWidth: 2,
-    textTransform: "none",
-    borderRadius: 50,
-    fontFamily: "Roboto",
-    fontWeight: "bold",
+    ...theme.typography.learnButton,
     fontSize: "0.9rem",
     height: 45,
+    width: 145,
+  },
+  learnButton: {
+    ...theme.typography.learnButton,
+    fontSize: "0.7rem",
+    height: 35,
+    padding: 5,
+    [theme.breakpoints.down("sm")]: {
+      marginBottom: "2em",
+    },
   },
   mainContainer: {
     marginTop: "5em",
@@ -49,6 +53,39 @@ export default makeStyles(theme => ({
     marginLeft: "1em",
     [theme.breakpoints.down("xs")]: {
       marginLeft: 0,
+    },
+  },
+  specialText: {
+    fontFamily: "Pacifico",
+    color: theme.palette.common.savageOrange,
+  },
+  subtitle: {
+    marginBottom: "1em",
+  },
+  icon: {
+    marginLeft: "2em",
+    [theme.breakpoints.down("xs")]: {
+      marginLeft: 0,
+    },
+  },
+  serviceContainer: {
+    marginTop: "12em",
+    [theme.breakpoints.down("sm")]: {
+      padding: 25,
+    },
+  },
+  revolutionCard: {
+    position: "absolute",
+    boxShadow: theme.shadows[10],
+    borderRadius: 15,
+    padding: "5em",
+    [theme.breakpoints.down("sm")]: {
+      paddingTop: "8em",
+      paddingBottom: "8em",
+      paddingLeft: 0,
+      paddingRight: 0,
+      borderRadius: 0,
+      width: "100%",
     },
   },
 }));
